@@ -1,3 +1,4 @@
+using BussinessLogicLayer.Services;
 using DataBaseLayer.Context;
 using DataBaseLayer.Interface;
 using DataBaseLayer.Repository;
@@ -22,6 +23,7 @@ namespace fundooNotes
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddScoped<IUserDAL, UserDAL>();
+            builder.Services.AddScoped<IUserBLL, UserBLL>();
 
             var app = builder.Build();
 
