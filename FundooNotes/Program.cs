@@ -25,6 +25,7 @@ namespace fundooNotes
 
             builder.Services.AddScoped<IUserDAL, UserDAL>();
             builder.Services.AddScoped<IUserBLL, UserBLL>();
+            builder.Services.AddScoped<IUserEmail, UserEmail>();
 
             var app = builder.Build();
 

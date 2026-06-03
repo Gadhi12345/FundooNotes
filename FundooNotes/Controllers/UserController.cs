@@ -16,9 +16,9 @@ namespace FundooNotes.Controllers
             _userBLL = userBLL;
         }
         [HttpPost]
-        public UserResponse RegisterUser(RegisterUserRequest userRequest)
+        public async Task<UserResponse> RegisterUser(RegisterUserRequest userRequest)
         {
-            return _userBLL.RegisterUser(userRequest);
+            return await _userBLL.RegisterUser(userRequest);
         }
     }
 }
