@@ -15,12 +15,14 @@ namespace BussinessLogicLayer.Services
     {
 
         private readonly IUserDAL _userDAL;
-        public UserBLL(IUserDAL userDAL)
+        private readonly IUserEmail _userEmail;
+        public UserBLL(IUserDAL userDAL,IUserEmail userEmail)
         {
             _userDAL= userDAL;
+            _userEmail= userEmail;
         }
 
-        public UserResponse RegisterUser(RegisterUserRequest userRequest)
+        public async Task<UserResponse> RegisterUser(RegisterUserRequest userRequest)
         {
             User user = new User()
             {
@@ -32,6 +34,7 @@ namespace BussinessLogicLayer.Services
                 CreatedAt=DateTime.Now
             };
             user = _userDAL.RegiserUser(user);
+            await _userEmail.SendEmail(user.Email, "Welcome to Fundoo Notes", "Your account created succesdsfully");
 
 
             UserResponse userResponse = new UserResponse()
