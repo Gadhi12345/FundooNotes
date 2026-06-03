@@ -1,5 +1,8 @@
-﻿using DataBaseLayer.Context;
+﻿using BCrypt.Net;
+using DataBaseLayer.Context;
 using DataBaseLayer.Interface;
+using Microsoft.EntityFrameworkCore;
+using ModelLayer.DTO.User;
 using ModelLayer.Entity;
 using System;
 using System.Collections.Generic;
@@ -17,12 +20,20 @@ namespace DataBaseLayer.Repository
             _context = context;
         }
 
+       
+        public User LoginUser(string Email)
+        {
+            return _context.Users
+             .FirstOrDefault(x => x.Email == Email);
+        }
+
         public User RegiserUser(User user)
         {
             _context.Users.Add(user);
             _context.SaveChanges();
             return user;
         }
- 
+
+      
     }
 }

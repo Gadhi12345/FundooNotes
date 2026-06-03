@@ -1,5 +1,7 @@
-﻿using BussinessLogicLayer.Interface;
+﻿using BCrypt.Net;
+using BussinessLogicLayer.Interface;
 using DataBaseLayer.Interface;
+using DataBaseLayer.Repository;
 using ModelLayer.DTO.User;
 using ModelLayer.Entity;
 using System;
@@ -7,8 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BCrypt.Net;
-
 namespace BussinessLogicLayer.Services
 {
     public class UserBLL : IUserBLL
@@ -16,11 +16,31 @@ namespace BussinessLogicLayer.Services
 
         private readonly IUserDAL _userDAL;
         private readonly IUserEmail _userEmail;
-        public UserBLL(IUserDAL userDAL,IUserEmail userEmail)
+        public UserBLL(IUserDAL userDAL, IUserEmail userEmail)
         {
-            _userDAL= userDAL;
-            _userEmail= userEmail;
+            _userDAL = userDAL;
+            _userEmail = userEmail;
         }
+
+        public async Task<bool> LoginUser(LoginRequest loginRequest)
+        {
+            User user = _userDAL.LoginUser(loginRequest.Email);
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            bool result = BCrypt.Net.BCrypt.Verify(
+
+                loginRequest.Password,
+                user.Password);
+
+            return result;
+
+        }
+
+      
 
         public async Task<UserResponse> RegisterUser(RegisterUserRequest userRequest)
         {

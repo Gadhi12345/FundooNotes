@@ -1,4 +1,5 @@
 ﻿using ModelLayer.DTO.User;
+using ModelLayer.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace BussinessLogicLayer.Interface
     public interface IUserBLL
     {
         Task<UserResponse> RegisterUser(RegisterUserRequest userRequest);
+        Task<bool> LoginUser(LoginRequest loginRequest);
     }
 }
