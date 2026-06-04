@@ -24,7 +24,7 @@ namespace FundooNotes.Controllers
 
         [HttpPost("Login")]
 
-        public async Task<bool> LoginUser(LoginRequest loginRequest)
+        public async Task<string> LoginUser(LoginRequest loginRequest)
         {
             return await _userBLL.LoginUser(loginRequest);
 
