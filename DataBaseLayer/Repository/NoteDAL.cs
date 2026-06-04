@@ -29,7 +29,7 @@ namespace DataBaseLayer.Repository
                 Image = createNoteRequest.Image,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt=DateTime.UtcNow,
-                
+                UserId= userId
 
             };
             _context.Notes.Add(note);
