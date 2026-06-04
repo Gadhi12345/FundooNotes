@@ -456,6 +456,6 @@ The following modules will be implemented in upcoming branches:
 
 **Adarsh Gadhiraju**
 
-Backend Development - Fundoo Notes Application
+ .NET Trainee 💻
 
 ---
