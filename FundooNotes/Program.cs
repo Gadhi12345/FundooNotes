@@ -3,7 +3,10 @@ using BussinessLogicLayer.Services;
 using DataBaseLayer.Context;
 using DataBaseLayer.Interface;
 using DataBaseLayer.Repository;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace fundooNotes
 {
@@ -26,6 +29,7 @@ namespace fundooNotes
             builder.Services.AddScoped<IUserDAL, UserDAL>();
             builder.Services.AddScoped<IUserBLL, UserBLL>();
             builder.Services.AddScoped<IUserEmail, UserEmail>();
+            
 
             var app = builder.Build();
 
@@ -37,6 +41,7 @@ namespace fundooNotes
             }
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

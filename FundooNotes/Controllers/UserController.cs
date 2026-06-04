@@ -1,4 +1,5 @@
 ﻿using BussinessLogicLayer.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using ModelLayer.DTO.User;
@@ -28,6 +29,13 @@ namespace FundooNotes.Controllers
         {
             return await _userBLL.LoginUser(loginRequest);
 
+        }
+
+        [Authorize]
+        [HttpGet("Test")]
+        public IActionResult Test()
+        {
+            return Ok("JWT Authentication Working Successfully");
         }
     }
 }
