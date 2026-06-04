@@ -1,5 +1,3 @@
-# FundooApplication
-
 # Fundoo Notes - User Module
 
 ---
