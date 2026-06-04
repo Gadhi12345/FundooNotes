@@ -36,5 +36,7 @@ namespace ModelLayer.Entity
 
 
         public DateTime ChangedAt { get; set; } = DateTime.UtcNow;
+
+        public ICollection<Notes> Notes { get; set; }
     }
 }

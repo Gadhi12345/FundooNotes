@@ -16,6 +16,7 @@ namespace DataBaseLayer.Context
         {
         }
         public DbSet<User> Users { get; set; }
+        public DbSet<Notes> Notes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -57,6 +58,42 @@ namespace DataBaseLayer.Context
 
 
                 entity.Property(u => u.ChangedAt);
+            });
+
+            modelBuilder.Entity<Notes>(entity =>
+            {
+                entity.HasKey(u => u.NotesId);
+
+                entity.Property(n => n.NotesId).ValueGeneratedOnAdd();
+
+                entity.Property(n => n.Title).
+                IsRequired().HasMaxLength(300);
+
+                entity.Property(n => n.Description).
+                HasColumnType("nvarchar(max)");
+
+
+                entity.Property(n => n.IsArchive)
+                .HasDefaultValue(false);
+
+                entity.Property(n => n.IsPin)
+                .HasDefaultValue(false);
+
+                entity.Property(n => n.IsTrash)
+                      .HasDefaultValue(false);
+
+                entity.Property(n => n.Colour).
+                HasMaxLength(7);
+
+                entity.Property(n => n.CreatedAt).
+                HasDefaultValueSql("GETUTCDATE()");
+
+                entity.Property(n => n.UpdatedAt).
+                IsRequired().HasDefaultValueSql("GETUTCDATE()");
+
+                entity.HasOne(n=>n.User).
+                WithMany(u => u.Notes).
+                HasForeignKey(n => n.UserId);
             });
         }
 
