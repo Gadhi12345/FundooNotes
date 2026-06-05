@@ -94,8 +94,8 @@ namespace BussinessLogicLayer.Services
                 CreatedAt=DateTime.Now
             };
             user = _userDAL.RegiserUser(user);
-
-            await _userEmail.SendEmail(user.Email, "Welcome to Fundoo Notes", "Your account created succesdsfully");
+            
+            await _userEmail.SendEmail(user.Email, "Welcome to Fundoo Notes","You login was succesful" );
 
 
             UserResponse userResponse = new UserResponse()
