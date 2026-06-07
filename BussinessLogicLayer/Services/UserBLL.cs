@@ -28,6 +28,8 @@ namespace BussinessLogicLayer.Services
             _configuration = configuration;
         }
 
+
+
         private string GenerateToken(User user)
         {
             string key = _configuration["Jwt:Key"];
