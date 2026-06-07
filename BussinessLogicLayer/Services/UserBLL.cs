@@ -63,6 +63,7 @@ namespace BussinessLogicLayer.Services
             if (user == null)
             {
                 return null;
+
             }
 
             bool result = BCrypt.Net.BCrypt.Verify(
@@ -96,8 +97,83 @@ namespace BussinessLogicLayer.Services
                 CreatedAt=DateTime.Now
             };
             user = _userDAL.RegiserUser(user);
-            
-            await _userEmail.SendEmail(user.Email, "Welcome to Fundoo Notes","You login was succesful" );
+            string body = $@"
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body style='font-family: Arial, sans-serif; background-color: #f4f6f9; padding: 20px;'>
+
+    <div style='max-width: 700px; margin: auto; background-color: white;
+                border-radius: 10px; overflow: hidden;
+                box-shadow: 0px 2px 10px rgba(0,0,0,0.1);'>
+
+        <div style='background-color: #1976D2;
+                    color: white;
+                    padding: 30px;
+                    text-align: center;'>
+
+            <h1 style='margin:0;'>Fundoo Notes</h1>
+            <p style='margin-top:10px;'>Connecting Worlds, Creating History</p>
+        </div>
+
+        <div style='padding: 30px;'>
+
+            <h2>Hello {user.FirstName}! 👋</h2>
+
+            <p>
+                Your Fundoo Notes account has been created successfully.
+            </p>
+
+            <p>
+                We're excited to have you onboard.
+                Every great journey begins with a single note. ✨
+            </p>
+
+            <div style='background-color:#E3F2FD;
+                        padding:15px;
+                        border-radius:8px;
+                        margin-top:20px;'>
+
+                <h3>Account Details</h3>
+
+                <p>
+                    <b>Name:</b> {user.FirstName}
+                </p>
+
+                <p>
+                    <b>Email:</b> {user.Email}
+                </p>
+
+            </div>
+
+            <p style='margin-top:25px;'>
+                Thank you for joining Fundoo Notes.
+                We look forward to helping you organize your ideas,
+                memories, and goals.
+            </p>
+
+            <p>
+                Best Wishes,<br><br>
+                <b>Adarsh Gadhiraju</b><br>
+                .Net FullStack Developer
+            </p>
+
+        </div>
+
+        <div style='background-color:#f5f5f5;
+                    text-align:center;
+                    padding:15px;'>
+
+            © Fundoo Notes | Welcome Aboard 🚀
+
+        </div>
+
+    </div>
+
+</body>
+</html>";
+            await _userEmail.SendEmail(user.Email, "Welcome to Fundoo Notes", body);
 
 
             UserResponse userResponse = new UserResponse()
