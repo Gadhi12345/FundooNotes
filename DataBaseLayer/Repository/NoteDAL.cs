@@ -16,7 +16,7 @@ namespace DataBaseLayer.Repository
 
         public NoteDAL(UserDbContext context)
         {
-            _context = context; 
+            _context = context;
         }
         public NoteResponse CreateNote(CreateNoteRequest createNoteRequest, int userId)
         {
@@ -28,8 +28,8 @@ namespace DataBaseLayer.Repository
                 Colour = createNoteRequest.Colour,
                 Image = createNoteRequest.Image,
                 CreatedAt = DateTime.UtcNow,
-                UpdatedAt=DateTime.UtcNow,
-                UserId= userId
+                UpdatedAt = DateTime.UtcNow,
+                UserId = userId
 
             };
             _context.Notes.Add(note);
@@ -50,7 +50,41 @@ namespace DataBaseLayer.Repository
                 UserId = note.UserId
             };
 
-
         }
-    }
-}
+
+        public NoteResponse UpdateNote(int notesId, int userId, UpdateNoteRequest updateNoteRequest)
+        {
+            Notes note = _context.Notes
+        .FirstOrDefault(x => x.NotesId == notesId && x.UserId == userId);
+
+            if (note == null)
+            {
+                return null;
+            }
+            note.Title = updateNoteRequest.Title;
+            note .Description = updateNoteRequest.Description;
+            note.Reminder = updateNoteRequest.Reminder;
+            note.Colour= updateNoteRequest.Colour;
+            note.Image = updateNoteRequest.Image;
+            note.UpdatedAt = DateTime.UtcNow;
+
+            _context.SaveChanges();
+
+            return new NoteResponse
+            {
+                NotesId = note.NotesId,
+                Title = note.Title,
+                Description = note.Description,
+                Reminder = note.Reminder,
+                Colour = note.Colour,
+                Image = note.Image,
+                IsArchive = note.IsArchive,
+                IsPin = note.IsPin,
+                IsTrash = note.IsTrash,
+                CreatedAt = note.CreatedAt,
+                UpdatedAt = note.UpdatedAt,
+                UserId = note.UserId
+            };
+        }    
+    }  
+}   

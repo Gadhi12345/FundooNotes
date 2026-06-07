@@ -34,7 +34,10 @@ namespace BussinessLogicLayer.Services
             smtp.Credentials= new NetworkCredential(username, password);
             //ssl-where the communication is encrypted between application and gmail where others cannot see
             smtp.EnableSsl = true;
+
             var message=new MailMessage(username,toemail,subject,body);
+
+            message.IsBodyHtml = true;
 
             await smtp.SendMailAsync(message);
         }

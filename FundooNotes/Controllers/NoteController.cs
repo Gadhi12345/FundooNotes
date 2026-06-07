@@ -23,10 +23,24 @@ namespace FundooNotes.Controllers
         [HttpPost]
         public IActionResult CreateNote(CreateNoteRequest createNoteRequest)
         {
-            //int userId = Convert.ToInt32(User.FindFirst("UserId")?.Value);
-            int userId = 21;
+            int userId = Convert.ToInt32(User.FindFirst("UserId")?.Value);
+          
 
             NoteResponse result = _noteBLL.CreateNote(createNoteRequest, userId);
+
+            return Ok(result);
+        }
+
+        [Authorize]
+        [HttpPut]
+        [Route("UpdateNote/{notesId}")]
+        public IActionResult UpdateNote( int notesId,UpdateNoteRequest updateNoteRequest)
+        {
+            int userId = Convert.ToInt32(
+                User.FindFirst("UserId")?.Value);
+
+            NoteResponse result =
+                _noteBLL.UpdateNote(notesId,userId,updateNoteRequest);
 
             return Ok(result);
         }

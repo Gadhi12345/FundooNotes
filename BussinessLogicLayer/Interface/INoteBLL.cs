@@ -10,5 +10,6 @@ namespace BussinessLogicLayer.Interface
     public interface INoteBLL
     {
         NoteResponse CreateNote(CreateNoteRequest createNoteRequest, int userId);
+        NoteResponse UpdateNote(int notesId,int userId,UpdateNoteRequest updateNoteRequest);
     }
 }

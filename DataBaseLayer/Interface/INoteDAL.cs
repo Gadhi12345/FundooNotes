@@ -10,5 +10,6 @@ namespace DataBaseLayer.Interface
     public interface INoteDAL
     {
         NoteResponse CreateNote(CreateNoteRequest createNoteRequest, int userId);
+        NoteResponse UpdateNote(int notesId, int userId, UpdateNoteRequest updateNoteRequest);
     }
 }
