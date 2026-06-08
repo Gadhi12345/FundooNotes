@@ -56,5 +56,148 @@ namespace FundooNotes.Controllers
                 });
             }
         }
+
+        [HttpPut("Update")]
+        public IActionResult UpdateLabel(UpdateLabelRequest request)
+        {
+            try
+            {
+                int userId = Convert.ToInt32(
+                    User.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value);
+
+                var result = _labelBLL.UpdateLabel(request, userId);
+
+                if (result != null)
+                {
+                    return Ok(new
+                    {
+                        Success = true,
+                        Message = "Label Updated Successfully",
+                        Data = result
+                    });
+                }
+
+                return BadRequest(new
+                {
+                    Success = false,
+                    Message = "Label Not Found"
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    Success = false,
+                    Message = ex.Message
+                });
+            }
+        }
+
+        [HttpDelete("Delete")]
+        public IActionResult DeleteLabel(int labelId)
+        {
+            try
+            {
+                int userId = Convert.ToInt32(
+                    User.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value);
+
+                bool result = _labelBLL.DeleteLabel(labelId, userId);
+
+                if (result)
+                {
+                    return Ok(new
+                    {
+                        Success = true,
+                        Message = "Label Deleted Successfully"
+                    });
+                }
+
+                return BadRequest(new
+                {
+                    Success = false,
+                    Message = "Label Not Found"
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    Success = false,
+                    Message = ex.Message
+                });
+            }
+        }
+
+
+        [HttpPost("AddLabelToNote")]
+        public IActionResult AddLabelToNote(AddLabelToNoteRequest request)
+        {
+            try
+            {
+                int userId = Convert.ToInt32(
+                    User.Claims.FirstOrDefault(c => c.Type == "UserId").Value);
+
+                bool result = _labelBLL.AddLabelToNote(request, userId);
+
+                if (result)
+                {
+                    return Ok(new
+                    {
+                        Success = true,
+                        Message = "Label Added To Note Successfully"
+                    });
+                }
+
+                return BadRequest(new
+                {
+                    Success = false,
+                    Message = "Failed To Add Label To Note"
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    Success = false,
+                    Message = ex.Message
+                });
+            }
+        }
+
+
+        [HttpDelete("RemoveFromNote")]
+        public IActionResult RemoveLabelFromNote(RemoveLabelFromNoteRequest request)
+        {
+            try
+            {
+                int userId = Convert.ToInt32(
+                    User.Claims.FirstOrDefault(c => c.Type == "UserId").Value);
+
+                bool result = _labelBLL.RemoveLabelFromNote(request, userId);
+
+                if (result)
+                {
+                    return Ok(new
+                    {
+                        Success = true,
+                        Message = "Label Removed From Note Successfully"
+                    });
+                }
+
+                return BadRequest(new
+                {
+                    Success = false,
+                    Message = "Failed To Remove Label From Note"
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    Success = false,
+                    Message = ex.Message
+                });
+            }
+        }
     }
 }

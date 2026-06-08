@@ -14,5 +14,7 @@ namespace BussinessLogicLayer.Interface
         LabelResponse UpdateLabel(UpdateLabelRequest request, int userId);
 
         bool DeleteLabel(int labelId, int userId);
+        bool AddLabelToNote(AddLabelToNoteRequest request, int userId);
+        bool RemoveLabelFromNote(RemoveLabelFromNoteRequest request, int userId);
     }
 }

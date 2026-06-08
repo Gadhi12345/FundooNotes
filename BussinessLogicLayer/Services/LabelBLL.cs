@@ -32,5 +32,15 @@ namespace BussinessLogicLayer.Services
         {
             return _labelDAL.DeleteLabel(labelId, userId);
         }
+
+        public bool AddLabelToNote(AddLabelToNoteRequest request, int userId)
+        {
+            return _labelDAL.AddLabelToNote(request, userId);
+        }
+
+        public bool RemoveLabelFromNote(RemoveLabelFromNoteRequest request, int userId)
+        {
+            return _labelDAL.RemoveLabelFromNote(request, userId);
+        }
     }
 }

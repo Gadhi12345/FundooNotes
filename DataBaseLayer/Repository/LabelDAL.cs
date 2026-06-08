@@ -20,6 +20,42 @@ namespace DataBaseLayer.Repository
             _context = context;
         }
 
+        public bool AddLabelToNote(AddLabelToNoteRequest request, int userId)
+        {
+            Notes note = _context.Notes
+       .FirstOrDefault(n =>
+           n.NotesId == request.NoteId &&
+           n.UserId == userId);
+
+            Label label = _context.Labels
+                .FirstOrDefault(l =>
+                    l.LabelId == request.LabelId &&
+                    l.UserId == userId);
+
+            if (note == null || label == null)
+            {
+                return false;
+            }
+            NoteLabel noteLabelExists = _context.NotesLabels
+      .FirstOrDefault(nl =>
+          nl.NoteId == request.NoteId &&
+          nl.LabelId == request.LabelId);
+
+            if (noteLabelExists != null)
+            {
+                return false;
+            }
+            NoteLabel noteLabel = new NoteLabel
+            {
+                NoteId = request.NoteId,
+                LabelId = request.LabelId
+            };
+            _context.NotesLabels.Add(noteLabel);
+            _context.SaveChanges();
+
+            return true;
+        }
+
         public LabelResponse CreateLabel(CreateLabelRequest request, int userId)
         {
             Label label = new Label();
@@ -48,6 +84,22 @@ namespace DataBaseLayer.Repository
             }
 
             _context.Labels.Remove(label);
+            _context.SaveChanges();
+
+            return true;
+        }
+
+        public bool RemoveLabelFromNote(RemoveLabelFromNoteRequest request, int userId)
+        {
+            NoteLabel noteLabel = _context.NotesLabels.FirstOrDefault(nl =>nl.NoteId == request.NoteId &&
+                              nl.LabelId == request.LabelId);
+
+            if (noteLabel == null)
+            {
+                return false;
+            }
+
+            _context.NotesLabels.Remove(noteLabel);
             _context.SaveChanges();
 
             return true;
