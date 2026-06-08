@@ -199,6 +199,28 @@ namespace FundooNotes.Controllers
 
             return Ok("Note Pinned Successfully");
         }
+
+
+        [Authorize]
+        [HttpPut]
+        [Route("ChangeColor/{notesId}")]
+        public IActionResult ChangeColor(int notesId, string colour)
+        {
+            int userId = Convert.ToInt32(
+                User.FindFirst("UserId")?.Value);
+
+            bool result = _noteBLL.ChangeColor(
+                notesId,
+                userId,
+                colour);
+
+            if (!result)
+            {
+                return NotFound("Note Not Found");
+            }
+
+            return Ok("Color Changed Successfully");
+        }
     }
 }
 

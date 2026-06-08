@@ -20,5 +20,6 @@ namespace DataBaseLayer.Interface
         bool ArchiveNote(int notesId, int userId);
         List<NoteResponse> GetArchivedNotes(int userId);
         bool PinNote(int notesId, int userId);
+        bool ChangeColor(int notesId, int userId, string colour);
     }
 }

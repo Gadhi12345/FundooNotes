@@ -35,6 +35,22 @@ namespace DataBaseLayer.Repository
             return true;
         }
 
+        public bool ChangeColor(int notesId, int userId, string colour)
+        {
+            Notes note = _context.Notes.FirstOrDefault(x =>x.NotesId == notesId && x.UserId == userId);
+
+            if (note == null)
+            {
+                return false;
+            }
+
+            note.Colour = colour;
+
+            _context.SaveChanges();
+
+            return true;
+        }
+
         public NoteResponse CreateNote(CreateNoteRequest createNoteRequest, int userId)
         {
             Notes note = new Notes()
@@ -211,16 +227,16 @@ namespace DataBaseLayer.Repository
             x.NotesId == notesId &&
             x.UserId == userId);
 
-            if (note == null)
-            {
-                return false;
-            }
+    if (note == null)
+    {
+        return false;
+    }
 
-            note.IsPin = true;
+    note.IsPin = true;
 
-            _context.SaveChanges();
+    _context.SaveChanges();
 
-            return true;
+    return true;
         }
 
         public bool RestoreNote(int notesId, int userId)

@@ -76,5 +76,11 @@ namespace BussinessLogicLayer.Services
         {
             return _noteDAL.PinNote(notesId, userId);
         }
+
+        public bool ChangeColor(int notesId, int userId, string colour)
+        {
+            return _noteDAL.ChangeColor(notesId, userId, colour);
+
+        }
     }
 }
