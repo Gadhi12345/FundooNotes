@@ -17,6 +17,8 @@ namespace DataBaseLayer.Context
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Notes> Notes { get; set; }
+        public DbSet<Label> Labels { get; set; }
+        public DbSet<NoteLabel> NotesLabels { get; set; }   
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -94,6 +96,49 @@ namespace DataBaseLayer.Context
                 entity.HasOne(n=>n.User).
                 WithMany(u => u.Notes).
                 HasForeignKey(n => n.UserId);
+            });
+
+            modelBuilder.Entity<Label>(entity =>
+            {
+                entity.HasKey(l => l.LabelId);
+
+                entity.Property(l => l.LabelId)
+                      .ValueGeneratedOnAdd();
+
+                entity.Property(l => l.LabelName)
+                      .IsRequired()
+                      .HasMaxLength(100);
+
+                entity.Property(l => l.CreatedAt)
+                      .HasDefaultValueSql("GETUTCDATE()");
+
+                entity.Property(l => l.UpdatedAt)
+                      .HasDefaultValueSql("GETUTCDATE()");
+
+                entity.HasOne(l => l.User)
+      .WithMany(u => u.Labels)
+      .HasForeignKey(l => l.UserId);
+            });
+
+            modelBuilder.Entity<NoteLabel>(entity => {
+                entity.HasKey(nl => nl.NoteLabelId);
+
+                entity.Property(nl => nl.NoteLabelId)
+                      .ValueGeneratedOnAdd();
+
+                entity.Property(nl => nl.CreatedAt)
+                      .HasDefaultValueSql("GETUTCDATE()");
+
+               
+
+                entity.HasOne(nl => nl.Notes)
+       .WithMany(n => n.NoteLabels)
+       .HasForeignKey(nl => nl.NoteId).OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(nl => nl.Label)
+                      .WithMany(l => l.NoteLabels)
+                      .HasForeignKey(nl => nl.LabelId) .OnDelete(DeleteBehavior.NoAction);
+
             });
         }
 

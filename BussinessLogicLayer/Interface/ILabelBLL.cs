@@ -1,0 +1,18 @@
+﻿using ModelLayer.DTO.Notes;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BussinessLogicLayer.Interface
+{
+    public interface ILabelBLL
+    {
+        LabelResponse CreateLabel(CreateLabelRequest request, int userId);
+
+        LabelResponse UpdateLabel(UpdateLabelRequest request, int userId);
+
+        bool DeleteLabel(int labelId, int userId);
+    }
+}

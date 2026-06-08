@@ -58,6 +58,8 @@ namespace fundooNotes
             builder.Services.AddScoped<IUserEmail, UserEmail>();
             builder.Services.AddScoped<INoteDAL, NoteDAL>();
             builder.Services.AddScoped<INoteBLL, NoteBLL>();
+            builder.Services.AddScoped<ILabelDAL, LabelDAL>();
+            builder.Services.AddScoped<ILabelBLL, LabelBLL>();
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
                     {
