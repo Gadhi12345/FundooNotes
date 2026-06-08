@@ -25,6 +25,16 @@ namespace BussinessLogicLayer.Services
             return _noteDAL.CreateNote(createNoteRequest, userId);
         }
 
+        public List<NoteResponse> GetAllNotes(int userId)
+        {
+            return _noteDAL.GetAllNotes(userId);
+        }
+
+        public NoteResponse GetNoteById(int notesId, int userId)
+        {
+            return _noteDAL.GetNoteById(notesId, userId);
+        }
+
         public NoteResponse UpdateNote(int notesId, int userId, UpdateNoteRequest updateNoteRequest)
         {
             return _noteDAL.UpdateNote(notesId, userId, updateNoteRequest);

@@ -11,5 +11,7 @@ namespace DataBaseLayer.Interface
     {
         NoteResponse CreateNote(CreateNoteRequest createNoteRequest, int userId);
         NoteResponse UpdateNote(int notesId, int userId, UpdateNoteRequest updateNoteRequest);
+        List<NoteResponse> GetAllNotes(int userId);
+        NoteResponse GetNoteById(int notesId, int userId);
     }
 }

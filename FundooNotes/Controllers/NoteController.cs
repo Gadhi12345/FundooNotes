@@ -44,6 +44,40 @@ namespace FundooNotes.Controllers
 
             return Ok(result);
         }
+
+
+        [Authorize]
+        [HttpGet]
+        [Route("GetAllNotes")]
+        public IActionResult GetAllNotes()
+        {
+            int userId = Convert.ToInt32(
+                User.FindFirst("UserId")?.Value);
+
+            List<NoteResponse> result =
+                _noteBLL.GetAllNotes(userId);
+
+            return Ok(result);
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("GetNoteById/{notesId}")]
+        public IActionResult GetNoteById(int notesId)
+        {
+            int userId = Convert.ToInt32(
+                User.FindFirst("UserId")?.Value);
+
+            NoteResponse result =
+                _noteBLL.GetNoteById(notesId, userId);
+
+            if (result == null)
+            {
+                return NotFound("Note Not Found");
+            }
+
+            return Ok(result);
+        }
     }
 }
 
