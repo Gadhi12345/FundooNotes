@@ -18,6 +18,23 @@ namespace DataBaseLayer.Repository
         {
             _context = context;
         }
+
+        public bool ArchiveNote(int notesId, int userId)
+        {
+            Notes note = _context.Notes.FirstOrDefault(x =>x.NotesId == notesId && x.UserId == userId);
+
+            if (note == null)
+            {
+                return false;
+            }
+
+            note.IsArchive = true;
+
+            _context.SaveChanges();
+
+            return true;
+        }
+
         public NoteResponse CreateNote(CreateNoteRequest createNoteRequest, int userId)
         {
             Notes note = new Notes()
@@ -87,6 +104,34 @@ namespace DataBaseLayer.Repository
                     UserId = note.UserId
                 });
             }
+            return response;
+        }
+
+        public List<NoteResponse> GetArchivedNotes(int userId)
+        {
+            List<Notes> notes = _context.Notes.Where(x => x.UserId == userId && x.IsArchive == true).ToList();
+
+            List<NoteResponse> response = new List<NoteResponse>();
+
+            foreach (var note in notes)
+            {
+                response.Add(new NoteResponse
+                {
+                    NotesId = note.NotesId,
+                    Title = note.Title,
+                    Description = note.Description,
+                    Reminder = note.Reminder,
+                    Colour = note.Colour,
+                    Image = note.Image,
+                    IsArchive = note.IsArchive,
+                    IsPin = note.IsPin,
+                    IsTrash = note.IsTrash,
+                    CreatedAt = note.CreatedAt,
+                    UpdatedAt = note.UpdatedAt,
+                    UserId = note.UserId
+                });
+            }
+
             return response;
         }
 

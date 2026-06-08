@@ -61,5 +61,15 @@ namespace BussinessLogicLayer.Services
             return _noteDAL.RestoreNote(notesId, userId);
 
         }
+
+        public bool ArchiveNote(int notesId, int userId)
+        {
+            return _noteDAL.ArchiveNote(notesId, userId);
+        }
+
+        public List<NoteResponse> GetArchivedNotes(int userId)
+        {
+            return _noteDAL.GetArchivedNotes(userId);
+        }
     }
 }

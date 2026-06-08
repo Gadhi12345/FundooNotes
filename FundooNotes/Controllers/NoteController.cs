@@ -148,6 +148,39 @@ namespace FundooNotes.Controllers
 
             return Ok("Note Restored Successfully");
         }
+
+
+        [Authorize]
+        [HttpPut]
+        [Route("ArchiveNote/{notesId}")]
+        public IActionResult ArchiveNote(int notesId)
+        {
+            int userId = Convert.ToInt32(
+                User.FindFirst("UserId")?.Value);
+
+            bool result = _noteBLL.ArchiveNote(notesId, userId);
+
+            if (!result)
+            {
+                return NotFound("Note Not Found");
+            }
+
+            return Ok("Note Archived Successfully");
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("GetArchivedNotes")]
+        public IActionResult GetArchivedNotes()
+        {
+            int userId = Convert.ToInt32(
+                User.FindFirst("UserId")?.Value);
+
+            List<NoteResponse> result =
+                _noteBLL.GetArchivedNotes(userId);
+
+            return Ok(result);
+        }
     }
 }
 

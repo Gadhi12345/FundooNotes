@@ -17,5 +17,7 @@ namespace DataBaseLayer.Interface
         bool MoveToTrash(int notesId,int userId);
         List<NoteResponse> GetTrashedNotes(int userId);
         bool RestoreNote(int notesId,int userId);
+        bool ArchiveNote(int notesId, int userId);
+        List<NoteResponse> GetArchivedNotes(int userId);
     }
 }
