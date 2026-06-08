@@ -16,6 +16,7 @@ namespace BussinessLogicLayer.Interface
         bool DeleteNote(int notesId,int userId);
         bool MoveToTrash(int  notesId,int userId);
         List<NoteResponse> GetTrashedNotes(int userId);
+        bool RestoreNote(int notesId, int userId);
     }
 }
 

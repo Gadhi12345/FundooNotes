@@ -56,6 +56,10 @@ namespace BussinessLogicLayer.Services
             return _noteDAL.UpdateNote(notesId, userId, updateNoteRequest);
         }
 
-       
+        public bool RestoreNote(int notesId, int userId)
+        {
+            return _noteDAL.RestoreNote(notesId, userId);
+
+        }
     }
 }

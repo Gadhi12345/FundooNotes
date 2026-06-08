@@ -159,6 +159,22 @@ namespace DataBaseLayer.Repository
 
         }
 
+        public bool RestoreNote(int notesId, int userId)
+        {
+            Notes note = _context.Notes.FirstOrDefault(x =>x.NotesId == notesId && x.UserId == userId);
+
+            if (note == null)
+            {
+                return false;
+            }
+
+            note.IsTrash = false;
+
+            _context.SaveChanges();
+
+            return true;
+        }
+
         public NoteResponse UpdateNote(int notesId, int userId, UpdateNoteRequest updateNoteRequest)
         {
             Notes note = _context.Notes

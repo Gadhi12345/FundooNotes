@@ -130,6 +130,24 @@ namespace FundooNotes.Controllers
 
             return Ok(result);
         }
+
+        [Authorize]
+        [HttpPut]
+        [Route("RestoreNote/{notesId}")]
+        public IActionResult RestoreNote(int notesId)
+        {
+            int userId = Convert.ToInt32(
+                User.FindFirst("UserId")?.Value);
+
+            bool result = _noteBLL.RestoreNote(notesId, userId);
+
+            if (!result)
+            {
+                return NotFound("Note Not Found");
+            }
+
+            return Ok("Note Restored Successfully");
+        }
     }
 }
 
