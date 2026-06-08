@@ -97,6 +97,39 @@ namespace FundooNotes.Controllers
 
             return Ok("Note Deleted Successfully");
         }
+
+        [Authorize]
+        [HttpPut]
+        [Route("MoveToTrash/{notesId}")]
+        public IActionResult MoveToTrash(int notesId)
+        {
+            int userId = Convert.ToInt32(
+                User.FindFirst("UserId")?.Value);
+
+            bool result = _noteBLL.MoveToTrash(notesId, userId);
+
+            if (!result)
+            {
+                return NotFound("Note Not Found");
+            }
+
+            return Ok("Note Moved To Trash Successfully");
+        }
+
+
+        [Authorize]
+        [HttpGet]
+        [Route("GetTrashedNotes")]
+        public IActionResult GetTrashedNotes()
+        {
+            int userId = Convert.ToInt32(
+                User.FindFirst("UserId")?.Value);
+
+            List<NoteResponse> result =
+                _noteBLL.GetTrashedNotes(userId);
+
+            return Ok(result);
+        }
     }
 }
 

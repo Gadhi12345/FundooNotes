@@ -29,6 +29,16 @@ namespace BussinessLogicLayer.Services
         {
             return _noteDAL.DeleteNote(noteId, userId);
         }
+        public bool MoveToTrash(int notesId, int userId)
+        {
+            return _noteDAL.MoveToTrash(notesId, userId);
+        }
+        public List<NoteResponse> GetTrashedNotes(int userId)
+        {
+            return _noteDAL.GetTrashedNotes(userId);
+
+        }
+
 
         public List<NoteResponse> GetAllNotes(int userId)
         {
@@ -40,9 +50,12 @@ namespace BussinessLogicLayer.Services
             return _noteDAL.GetNoteById(notesId, userId);
         }
 
+
         public NoteResponse UpdateNote(int notesId, int userId, UpdateNoteRequest updateNoteRequest)
         {
             return _noteDAL.UpdateNote(notesId, userId, updateNoteRequest);
         }
+
+       
     }
 }

@@ -115,6 +115,50 @@ namespace DataBaseLayer.Repository
 
         }
 
+        public List<NoteResponse> GetTrashedNotes(int userId)
+        {
+
+            List<Notes> notes = _context.Notes
+                .Where(x => x.UserId == userId && x.IsTrash == true)
+                .ToList();
+
+            List<NoteResponse> response = new List<NoteResponse>();
+
+            foreach (var note in notes)
+            {
+                response.Add(new NoteResponse
+                {
+                    NotesId = note.NotesId,
+                    Title = note.Title,
+                    Description = note.Description,
+                    Reminder = note.Reminder,
+                    Colour = note.Colour,
+                    Image = note.Image,
+                    IsArchive = note.IsArchive,
+                    IsPin = note.IsPin,
+                    IsTrash = note.IsTrash,
+                    CreatedAt = note.CreatedAt,
+                    UpdatedAt = note.UpdatedAt,
+                    UserId = note.UserId
+                });
+            }
+
+            return response;
+        }
+
+        public bool MoveToTrash(int notesId, int userId)
+        {
+            Notes note = _context.Notes.FirstOrDefault(x => x.NotesId == notesId && x.UserId == userId);
+            if (note == null)
+            {
+                return false;
+            }
+            note.IsTrash = true;
+            _context.SaveChanges();
+            return true;
+
+        }
+
         public NoteResponse UpdateNote(int notesId, int userId, UpdateNoteRequest updateNoteRequest)
         {
             Notes note = _context.Notes

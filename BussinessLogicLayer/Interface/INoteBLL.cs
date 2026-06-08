@@ -13,7 +13,9 @@ namespace BussinessLogicLayer.Interface
         NoteResponse UpdateNote(int notesId,int userId,UpdateNoteRequest updateNoteRequest);
         List<NoteResponse> GetAllNotes(int userId);
         NoteResponse GetNoteById(int notesId, int userId);
-        bool DeleteNote(int noteId,int userId);
+        bool DeleteNote(int notesId,int userId);
+        bool MoveToTrash(int  notesId,int userId);
+        List<NoteResponse> GetTrashedNotes(int userId);
     }
 }
 
