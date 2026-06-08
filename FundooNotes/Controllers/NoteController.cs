@@ -181,6 +181,24 @@ namespace FundooNotes.Controllers
 
             return Ok(result);
         }
+
+        [Authorize]
+        [HttpPut]
+        [Route("PinNote/{notesId}")]
+        public IActionResult PinNote(int notesId)
+        {
+            int userId = Convert.ToInt32(
+                User.FindFirst("UserId")?.Value);
+
+            bool result = _noteBLL.PinNote(notesId, userId);
+
+            if (!result)
+            {
+                return NotFound("Note Not Found");
+            }
+
+            return Ok("Note Pinned Successfully");
+        }
     }
 }
 

@@ -19,6 +19,7 @@ namespace BussinessLogicLayer.Interface
         bool RestoreNote(int notesId, int userId);
         bool ArchiveNote(int notesId, int userId);
         List<NoteResponse> GetArchivedNotes(int userId);
+        bool PinNote(int notesId, int userId);
     }
 }
 

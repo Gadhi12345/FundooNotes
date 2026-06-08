@@ -204,6 +204,25 @@ namespace DataBaseLayer.Repository
 
         }
 
+        public bool PinNote(int notesId, int userId)
+        {
+            Notes note = _context.Notes
+        .FirstOrDefault(x =>
+            x.NotesId == notesId &&
+            x.UserId == userId);
+
+            if (note == null)
+            {
+                return false;
+            }
+
+            note.IsPin = true;
+
+            _context.SaveChanges();
+
+            return true;
+        }
+
         public bool RestoreNote(int notesId, int userId)
         {
             Notes note = _context.Notes.FirstOrDefault(x =>x.NotesId == notesId && x.UserId == userId);

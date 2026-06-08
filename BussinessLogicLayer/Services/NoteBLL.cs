@@ -71,5 +71,10 @@ namespace BussinessLogicLayer.Services
         {
             return _noteDAL.GetArchivedNotes(userId);
         }
+
+        public bool PinNote(int notesId, int userId)
+        {
+            return _noteDAL.PinNote(notesId, userId);
+        }
     }
 }
