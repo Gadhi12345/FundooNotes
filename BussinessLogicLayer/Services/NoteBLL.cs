@@ -25,6 +25,11 @@ namespace BussinessLogicLayer.Services
             return _noteDAL.CreateNote(createNoteRequest, userId);
         }
 
+        public bool DeleteNote(int noteId, int userId)
+        {
+            return _noteDAL.DeleteNote(noteId, userId);
+        }
+
         public List<NoteResponse> GetAllNotes(int userId)
         {
             return _noteDAL.GetAllNotes(userId);

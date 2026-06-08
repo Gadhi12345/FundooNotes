@@ -52,6 +52,18 @@ namespace DataBaseLayer.Repository
 
         }
 
+        public bool DeleteNote(int notesId, int userId)
+        {
+            Notes note = _context.Notes.FirstOrDefault(x =>x.NotesId == notesId && x.UserId == userId);
+            if (note == null)
+            {
+                return false;
+            }
+            _context.Notes.Remove(note);
+            _context.SaveChanges();
+            return true;
+        }
+
         public List<NoteResponse> GetAllNotes(int userId)
         {
             List<Notes> notes = _context.Notes.Where(x => x.UserId == userId).ToList();

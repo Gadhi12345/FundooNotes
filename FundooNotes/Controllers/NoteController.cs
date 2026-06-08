@@ -78,6 +78,25 @@ namespace FundooNotes.Controllers
 
             return Ok(result);
         }
+
+
+        [Authorize]
+        [HttpDelete]
+        [Route("DeleteNote/{notesId}")]
+        public IActionResult DeleteNote(int notesId)
+        {
+            int userId = Convert.ToInt32(
+                User.FindFirst("UserId")?.Value);
+
+            bool result = _noteBLL.DeleteNote(notesId, userId);
+
+            if (!result)
+            {
+                return NotFound("Note Not Found");
+            }
+
+            return Ok("Note Deleted Successfully");
+        }
     }
 }
 
