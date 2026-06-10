@@ -6,8 +6,9 @@ using DataBaseLayer.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Microsoft.OpenApi.Models;
+using StackExchange.Redis;
+using System.Text;
 
 namespace fundooNotes
 {
@@ -79,7 +80,9 @@ namespace fundooNotes
             });
             builder.Services.AddAuthorization();
 
-
+            builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect("localhost:6379"));
+            builder.Services.AddScoped<IRedisDAL, RedisDAL>();
+            builder.Services.AddScoped<IRedisBLL, RedisBLL>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

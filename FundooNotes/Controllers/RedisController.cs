@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BussinessLogicLayer.Interface;
+using Microsoft.AspNetCore.Mvc;
 using StackExchange.Redis;
 
 namespace FundooNotes.Controllers
@@ -7,27 +8,24 @@ namespace FundooNotes.Controllers
     [ApiController]
     public class RedisController : ControllerBase
     {
-        private readonly IDatabase _db;
+        private readonly IRedisBLL _redisBLL;
 
-        public RedisController(IConnectionMultiplexer redis)
+        public RedisController(IRedisBLL redisBLL)
         {
-            _db = redis.GetDatabase();
+            _redisBLL = redisBLL;
         }
 
         [HttpPost("set")]
         public async Task<IActionResult> Set(string key, string value)
         {
-            await _db.StringSetAsync(key, value);
-
+            await _redisBLL.SetData(key, value);
             return Ok("Data stored in Redis");
         }
-
         [HttpGet("get")]
         public async Task<IActionResult> Get(string key)
         {
-            var value = await _db.StringGetAsync(key);
-
-            return Ok(value.ToString());
+            var value = await _redisBLL.GetData(key);
+            return Ok(value);
         }
     }
 }
