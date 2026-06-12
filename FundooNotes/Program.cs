@@ -83,6 +83,8 @@ namespace fundooNotes
             builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect("localhost:6379"));
             builder.Services.AddScoped<IRedisDAL, RedisDAL>();
             builder.Services.AddScoped<IRedisBLL, RedisBLL>();
+            builder.Services.AddScoped<ICollaboratorDAL, CollaboratorDAL>();
+            builder.Services.AddScoped<ICollaboratorBLL, CollaboratorBLL>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

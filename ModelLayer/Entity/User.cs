@@ -40,5 +40,9 @@ namespace ModelLayer.Entity
         public ICollection<Notes> Notes { get; set; }
 
         public ICollection<Label> Labels { get; set; }
+
+        public ICollection<Collaborator> OwnedCollaborators { get; set; }
+
+        public ICollection<Collaborator> SharedCollaborators { get; set; }
     }
 }
