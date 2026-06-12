@@ -10,5 +10,6 @@ namespace BussinessLogicLayer.Interface
     public interface ICollaboratorBLL
     {
         bool AddCollaborator(int noteId, int ownerUserId, AddCollaboratorRequest request);
+        List<CollaboratorResponse> GetCollaborators(int noteId, int ownerUserId);
     }
 }

@@ -20,5 +20,10 @@ namespace BussinessLogicLayer.Services
         {
             return _collaboratorDAL.AddCollaborator(noteId, ownerUserId, request);
         }
+
+        public List<CollaboratorResponse> GetCollaborators(int noteId, int ownerUserId)
+        {
+            return _collaboratorDAL.GetCollaborators(noteId, ownerUserId);
+        }
     }
 }

@@ -63,5 +63,20 @@ namespace DataBaseLayer.Repository
 
             return true;
         }
+
+        public List<CollaboratorResponse> GetCollaborators(int noteId, int ownerUserId)
+        {
+            return _context.Collaborators
+                .Where(c => c.NoteId == noteId &&
+                   c.OwnerUserId == ownerUserId)
+                .Include(c => c.CollaboratorUser)
+                .Select(c => new CollaboratorResponse
+                {
+                    CollaboratorId = c.CollaboratorId,
+                    UserId = c.CollaboratorUserId,
+                    Name = c.CollaboratorUser.FirstName + " " + c.CollaboratorUser.LastName,
+                    Email = c.CollaboratorUser.Email
+                }).ToList();
+        }
     }
 }

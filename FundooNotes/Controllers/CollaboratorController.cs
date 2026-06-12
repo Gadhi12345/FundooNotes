@@ -45,5 +45,17 @@ namespace FundooNotes.Controllers
                 message = "Unable to add collaborator"
             });
         }
+        [HttpGet("{noteId}")]
+        public IActionResult GetCollaborators(int noteId)
+        {
+            int ownerUserId = Convert.ToInt32(
+                User.FindFirst("UserId")?.Value);
+
+            var result = _collaboratorBLL.GetCollaborators(
+                noteId,
+                ownerUserId);
+
+            return Ok(result);
+        }
     }
 }

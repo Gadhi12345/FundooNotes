@@ -10,5 +10,6 @@ namespace DataBaseLayer.Interface
     public interface ICollaboratorDAL
     {
         bool AddCollaborator(int noteId, int ownerUserId, AddCollaboratorRequest request);
+        List<CollaboratorResponse> GetCollaborators(int noteId, int ownerUserId);
     }
 }
