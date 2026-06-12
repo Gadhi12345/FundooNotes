@@ -4,11 +4,6 @@ Fundoo Notes is a layered ASP.NET Core Web API application that allows users to 
 
 ---
 
-## 🏗️ Architecture
-
-<img width="784" height="835" alt="image" src="https://github.com/user-attachments/assets/45ad1e47-b9f2-454c-9872-0d9fb4772946" />
-
-
 ### Request Flow
 
 ```text
