@@ -57,5 +57,45 @@ namespace FundooNotes.Controllers
 
             return Ok(result);
         }
+
+        [HttpDelete("{noteId}/{collaboratorUserId}")]
+        public IActionResult RemoveCollaborator(int noteId, int collaboratorUserId)
+        {
+            int ownerUserId = Convert.ToInt32(
+                User.FindFirst("UserId")?.Value);
+
+            bool result = _collaboratorBLL.RemoveCollaborator(
+                noteId,
+                ownerUserId,
+                collaboratorUserId);
+
+            if (result)
+            {
+                return Ok(new
+                {
+                    success = true,
+                    message = "Collaborator removed successfully"
+                });
+            }
+
+            return BadRequest(new
+            {
+                success = false,
+                message = "Unable to remove collaborator"
+            });
+        }
+
+
+        [HttpGet("sharednotes")]
+        public IActionResult GetSharedNotes()
+        {
+            int collaboratorUserId = Convert.ToInt32(
+                User.FindFirst("UserId")?.Value);
+
+            var result = _collaboratorBLL.GetSharedNotes(
+                collaboratorUserId);
+
+            return Ok(result);
+        }
     }
 }

@@ -78,5 +78,37 @@ namespace DataBaseLayer.Repository
                     Email = c.CollaboratorUser.Email
                 }).ToList();
         }
+
+        public List<SharedNoteResponse> GetSharedNotes(int collaboratorUserId)
+        {
+            return _context.Collaborators
+       .Where(c => c.CollaboratorUserId == collaboratorUserId)
+       .Include(c => c.Notes)
+       .Select(c => new SharedNoteResponse
+       {
+           NoteId = c.NoteId,
+           Title = c.Notes.Title,
+           Description = c.Notes.Description
+       })
+       .ToList();
+        }
+
+        public bool RemoveCollaborator(int noteId, int ownerUserId, int collaboratorUserId)
+        {
+            var collaborator = _context.Collaborators.FirstOrDefault(c =>
+            c.NoteId == noteId &&
+            c.OwnerUserId == ownerUserId &&
+            c.CollaboratorUserId == collaboratorUserId);
+
+            if (collaborator == null)
+            {
+                return false;
+            }
+
+            _context.Collaborators.Remove(collaborator);
+            _context.SaveChanges();
+
+            return true;
+        }
     }
 }

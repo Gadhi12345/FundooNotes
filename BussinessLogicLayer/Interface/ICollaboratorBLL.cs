@@ -11,5 +11,9 @@ namespace BussinessLogicLayer.Interface
     {
         bool AddCollaborator(int noteId, int ownerUserId, AddCollaboratorRequest request);
         List<CollaboratorResponse> GetCollaborators(int noteId, int ownerUserId);
+        bool RemoveCollaborator(int noteId, int ownerUserId, int collaboratorUserId);
+        List<SharedNoteResponse> GetSharedNotes(int collaboratorUserId);
+
+
     }
 }

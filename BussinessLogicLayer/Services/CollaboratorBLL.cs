@@ -25,5 +25,15 @@ namespace BussinessLogicLayer.Services
         {
             return _collaboratorDAL.GetCollaborators(noteId, ownerUserId);
         }
+
+        public List<SharedNoteResponse> GetSharedNotes(int collaboratorUserId)
+        {
+            return _collaboratorDAL.GetSharedNotes(collaboratorUserId);
+        }
+
+        public bool RemoveCollaborator(int noteId, int ownerUserId, int collaboratorUserId)
+        {
+           return _collaboratorDAL.RemoveCollaborator(noteId,ownerUserId, collaboratorUserId);
+        }
     }
 }
