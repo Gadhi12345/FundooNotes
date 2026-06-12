@@ -158,3 +158,10 @@ Redis Cache
 - Repository Pattern
 - Redis Caching Support
 - Scalable and Maintainable Code Structure
+
+---
+
+### Author
+**Adarsh Gadhiraju**
+
+
